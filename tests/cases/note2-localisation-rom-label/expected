@@ -1,0 +1,2 @@
+exit: 0
+romlabel BOOT 0 0;romlabel STAGED 33792 7;

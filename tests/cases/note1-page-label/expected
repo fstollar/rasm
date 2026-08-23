@@ -1,0 +1,2 @@
+exit: nonzero
+cannot use PAGE in cartridge mode - {PAGE} returns a RAM banking configuration, use {BANK} instead
