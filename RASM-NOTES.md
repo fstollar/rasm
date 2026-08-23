@@ -20,6 +20,22 @@ checked without our project.
 - Target: Amstrad CPC Plus / GX4000 cartridge (`.cpr`), `BUILDCPR`
   cartridge mode with numbered banks throughout
 
+**Status**
+
+Both notes are open as far as upstream is concerned -- nothing has been
+reported or offered to the author yet. Both have a candidate fix in our
+fork (`../rasm/`, `https://github.com/fstollar/rasm`), each developed on
+its own branch with a folder-based regression case per behaviour, and
+each also published as a single commit based on `upstream/master`:
+
+| Note | Fix branch | PR-shaped branch | What it changes |
+|---|---|---|---|
+| 1 | `fix/page-buildcpr` | `pr/page-buildcpr` | `{PAGE}`/`{PAGESET}` raise an error in cartridge mode instead of silently emitting a RAM-banking value. Covered by four new entries in RASM's own `-autotest` suite. |
+| 2 | `fix/localisation-numbered-bank` | `pr/localisation-numbered-bank` | The cartridge label and breakpoint export honours `LOCALISATION` for a numbered bank, as the snapshot path already did. |
+
+The branches are local to that checkout so far -- not pushed, not merged,
+no upstream PR.
+
 Each note below is a complete, copy-pasteable source plus the exact
 command and the observed output.
 
