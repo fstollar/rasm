@@ -7,8 +7,9 @@ entries in RASM's own `-autotest` suite instead; this directory is where
 the fix is *developed*.
 
 Source of truth for the reproductions: `../raycast/RASM-NOTES.md`. When a
-note is answered or a behaviour changes, update that file -- do not fork
-a second copy of it here.
+note is answered or a behaviour changes, update **that** file; the
+`RASM-NOTES.md` at this repo's root is a byte-identical snapshot of it
+for readers of the fork, re-copied rather than edited in place.
 
 ## 1. Running
 
