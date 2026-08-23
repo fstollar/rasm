@@ -94,3 +94,24 @@ upstream `b222469` before any of our changes:
 
 264 `OK` lines, exit 255. Compare against that, not against zero
 failures, when checking that a change added no new autotest breakage.
+
+## 6. Two things the note 1 guard depends on
+
+Both were checked against `rasm.c`, not assumed:
+
+- **`ae->forcecpr` is the only correct predicate.** `BANKSET` defaults to
+  `forcesnapshot` (`rasm.c:19080`), which is why upstream's own
+  `AUTOTEST_PAGETAG`/`PAGETAG2` keep passing. `buildsna CPR` sets a
+  *separate* flag `ae->snacpr` and never `forcecpr`, so a snapshot packed
+  into a `.cpr` is untouched by the guard.
+- **A bare `BANK n` with no build directive implies cartridge mode**
+  (`rasm.c:18941`: "using BANK without build mode will select cartridge
+  output as default"). So `{PAGE}` errors there too, without any
+  `buildcpr` in the source. That is intended -- the output really is a
+  cartridge -- but it is the one case where the new error appears in a
+  source that never names `buildcpr`.
+
+One diagnostic is emitted per offending reference, not one per assembly
+pass -- verified for all four note 1 cases. This matters because rasm's
+`MaxError` aborts the run with a different, misleading message once the
+error count is exceeded.
