@@ -9,7 +9,13 @@ checked without our project.
 
 **Environment**
 
-- RASM v3.2.5 (build 01/06/2026) -- "Atlas"
+- RASM v3.2.7 (build 16/08/2026) -- "Atlas", upstream commit `b222469`.
+  Both notes were first written against v3.2.5 (build 01/06/2026) and
+  re-checked against v3.2.7 on 2026-08-23: both still reproduce, with
+  output unchanged between the two versions. Note 1 emits the same five
+  operands listed below; note 2's three variants produce byte-identical
+  `.cpr` files (md5 `c740d5ff4f49fe8fa449f439fcff5acc`), so
+  `LOCALISATION` in a numbered bank affects no output path at all.
 - Linux x86-64
 - Target: Amstrad CPC Plus / GX4000 cartridge (`.cpr`), `BUILDCPR`
   cartridge mode with numbered banks throughout
