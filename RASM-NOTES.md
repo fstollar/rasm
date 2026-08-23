@@ -22,19 +22,29 @@ checked without our project.
 
 **Status**
 
-Both notes are open as far as upstream is concerned -- nothing has been
-reported or offered to the author yet. Both have a candidate fix in our
-fork (`../rasm/`, `https://github.com/fstollar/rasm`), each developed on
-its own branch with a folder-based regression case per behaviour, and
-each also published as a single commit based on `upstream/master`:
+Both notes now have a fix in our fork (`../rasm/`,
+`https://github.com/fstollar/rasm`), each developed on its own branch
+with a folder-based regression case per behaviour, and each offered
+upstream as a single `rasm.c`-only commit based on `upstream/master`:
 
-| Note | Fix branch | PR-shaped branch | What it changes |
+| Note | Upstream PR | Branch | What it changes |
 |---|---|---|---|
-| 1 | `fix/page-buildcpr` | `pr/page-buildcpr` | `{PAGE}`/`{PAGESET}` raise an error in cartridge mode instead of silently emitting a RAM-banking value. Covered by four new entries in RASM's own `-autotest` suite. |
-| 2 | `fix/localisation-numbered-bank` | `pr/localisation-numbered-bank` | The cartridge label and breakpoint export honours `LOCALISATION` for a numbered bank, as the snapshot path already did. |
+| 1 | [EdouardBERGE/rasm#65](https://github.com/EdouardBERGE/rasm/pull/65) | `pr/page-buildcpr` | `{PAGE}`/`{PAGESET}` raise an error in cartridge mode instead of silently emitting a RAM-banking value. Covered by four new entries in RASM's own `-autotest` suite. |
+| 2 | [EdouardBERGE/rasm#66](https://github.com/EdouardBERGE/rasm/pull/66) | `pr/localisation-numbered-bank` | The cartridge label and breakpoint export honours `LOCALISATION` for a numbered bank, as the snapshot path already did. |
 
-The branches are local to that checkout so far -- not pushed, not merged,
-no upstream PR.
+Both PRs are open and awaiting review; neither behaviour is fixed in
+upstream RASM yet, so the reproductions below still stand against
+`b222469`. Fork `master` (both fixes merged, plus the regression
+harness) is pushed to `origin`.
+
+Locally, `~/.local/bin/rasm` is now the fork's build, so this project
+assembles against both fixes. The previous upstream v3.2.5 binary is
+kept alongside it as `~/.local/bin/rasm-3.2.5-upstream`. Switching over
+changed no emitted code -- the M3, M4 and cart `.cpr` code banks are
+byte-identical before and after -- and changed only the `REMU` debug
+chunk, where 272 (M3) / 279 (M4) `LOCALISATION`-retargeted symbols now
+export as RAM labels at the address they actually execute at, with no
+symbol added, removed or moved.
 
 Each note below is a complete, copy-pasteable source plus the exact
 command and the observed output.
